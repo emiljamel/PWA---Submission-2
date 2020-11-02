@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soccer-v2';
+const CACHE_NAME = 'soccer-v1';
 const BASE_URL = 'https://api.football-data.org/v2';
 const URL_TO_CACHES = [
   'https://fonts.googleapis.com/icon?family=Material+Icons',
@@ -8,6 +8,9 @@ const URL_TO_CACHES = [
   './index.js',
   './index.html',
   './push.js',
+  './images/icon-16x16.png',
+  './images/icon-32x32.png',
+  './images/icon-96x96.png',
   './images/icon-192x192.png',
   './images/icon-512x512.png',
   './styles/materialize.min.css',
@@ -18,6 +21,7 @@ const URL_TO_CACHES = [
   './scripts/libs/materialize.min.js',
   './scripts/routes/routes.js',
   './scripts/routes/url-parser.js',
+  './scripts/utils/drawer-initiator.js',
   './scripts/utils/notif-register.js',
   './scripts/utils/sw-register.js',
   './scripts/utils/urlBase64ToUint8Array.js',
@@ -36,50 +40,24 @@ self.addEventListener('install', event => {
   )
 });
 
-// self.addEventListener('fetch', event => {
-//   if (event.request.url.indexOf(BASE_URL) > -1) {
-//     event.respondWith(
-//       caches.open(CACHE_NAME).then(cache => {
-//         return fetch(event.request).then(response => {
-//           cache.put(event.request.url, response.clone());
+self.addEventListener('fetch', event => {
+  if (event.request.url.indexOf(BASE_URL) > -1) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then(cache => {
+        return fetch(event.request).then(response => {
+          cache.put(event.request.url, response.clone());
 
-//           return response;
-//         });
-//       })
-//     );
-//   } else {
-//     event.respondWith(
-//       caches.match(event.request, { ignoreSearch: true }).then(response => {
-//         return response || fetch(event.request);
-//       })
-//     );
-//   }
-// });
-
-self.addEventListener('fetch', event => {                       
-  event.respondWith(
-    caches.match(event.request, { ignoreSearch: true })         
-    .then(function(response) {
-      if (response) {
-        return response;                                        
-      }
-      var requestToCache = event.request.clone();
-
-      return fetch(requestToCache).then(                        
-        function(response) {
-          if(!response) {
-            return response;
-          }
-
-          var responseToCache = response.clone();
-          caches.open(CACHE_NAME)
-          .then(function(cache) {
-            cache.put(requestToCache, responseToCache);         
-          });
           return response;
         });
-    })
-  );
+      })
+    );
+  } else {
+    event.respondWith(
+      caches.match(event.request, { ignoreSearch: true }).then(response => {
+        return response || fetch(event.request);
+      })
+    );
+  }
 });
 
 self.addEventListener('activate', event => {

@@ -3,7 +3,8 @@ import swRegister from './scripts/utils/sw-register.js';
 import notifRegister from './scripts/utils/notif-register.js';
 
 const app = new App({
-  button: document.getElementById('button'),
+  button: document.getElementById('mobile-demo'),
+  drawer: document.querySelectorAll('ul a'),
   content: document.getElementById('content')
 });
 
