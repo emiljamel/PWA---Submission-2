@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soccer-v1';
+const CACHE_NAME = 'soccer-v2';
 const BASE_URL = 'https://api.football-data.org/v2';
 const URL_TO_CACHES = [
   'https://fonts.googleapis.com/icon?family=Material+Icons',
@@ -7,6 +7,7 @@ const URL_TO_CACHES = [
   './manifest.json',
   './index.js',
   './index.html',
+  './push.js',
   './images/icon-192x192.png',
   './images/icon-512x512.png',
   './styles/materialize.min.css',
@@ -17,7 +18,9 @@ const URL_TO_CACHES = [
   './scripts/libs/materialize.min.js',
   './scripts/routes/routes.js',
   './scripts/routes/url-parser.js',
+  './scripts/utils/notif-register.js',
   './scripts/utils/sw-register.js',
+  './scripts/utils/urlBase64ToUint8Array.js',
   './scripts/view/pages/details.js',
   './scripts/view/pages/favorites.js',
   './scripts/view/pages/standings.js',
@@ -66,5 +69,28 @@ self.addEventListener('activate', event => {
         })
       );
     })
+  );
+});
+
+self.addEventListener('push', event => {
+  let body;
+  if (event.data) {
+    body = event.data.text();
+  } else {
+    body = 'Push message no payload!';
+  }
+
+  const options = {
+    body: body,
+    icon: './images/icon-192x192.png',
+    vibrate: [100, 50, 100],
+    data: {
+      dateOfArrival: Date.now(),
+      primaryKey: 1
+    }
+  };
+
+  event.waitUntil(
+    self.registration.showNotification('Push Notification', options)
   );
 });

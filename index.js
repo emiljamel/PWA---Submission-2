@@ -1,5 +1,6 @@
 import App from './scripts/view/App.js';
 import swRegister from './scripts/utils/sw-register.js';
+import notifRegister from './scripts/utils/notif-register.js';
 
 const app = new App({
   button: document.getElementById('button'),
@@ -14,4 +15,5 @@ window.addEventListener('hashchange', () => {
 document.addEventListener('DOMContentLoaded', () => {
   app.renderPage();
   swRegister();
+  notifRegister();
 });
