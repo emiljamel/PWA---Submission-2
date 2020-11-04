@@ -1,4 +1,0 @@
-{
-  "publicKey": "BH-ORleSM7wAyNTYP_SkE8N-9ro8tHoQSC7IVvSq-QO_IRA24lK0zhZZ3xbEV4v_zDpFLXIVsYB4KggSdI_-eM8",
-  "privateKey": "QcU76a30mvh7CM_1I-VgZfsnua3xjfgPgabif-ueMsg"
-}

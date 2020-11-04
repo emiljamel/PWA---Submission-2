@@ -15,7 +15,7 @@ const notifRegister = () => {
         navigator.serviceWorker.getRegistration().then(req => {
           req.pushManager.subscribe({
             userVisibleOnly: true,
-            applicationServerKey: urlBase64ToUint8Array('BH-ORleSM7wAyNTYP_SkE8N-9ro8tHoQSC7IVvSq-QO_IRA24lK0zhZZ3xbEV4v_zDpFLXIVsYB4KggSdI_-eM8')
+            applicationServerKey: urlBase64ToUint8Array('BA5WNC_Xv-XBcL32ALs_giG2-oKRxcfvm-XsTSTiroPwQ9a2KCD2ZqPs-fxkFS6_4V5dA0-jl5m8nLk0UBa6Wnw')
           }).then(subscribe => {
             console.log('Berhasil melakukan subscribe dengan endpoint: ', subscribe.endpoint);
             console.log('Berhasil melakukan subscribe dengan p256dh key: ', 
