@@ -36,8 +36,8 @@ const Standings = {
     const standingsListElement = document.getElementById('standings-list');
 
     try {
-      const results = await DataStandings.getStandings(); 
-      
+      const results = await DataStandings.getStandings();
+     
       results.standings[0].table.forEach(result => {
         let row = document.createElement('tr');
         row.innerHTML = `<td>${result.position}</td>`;

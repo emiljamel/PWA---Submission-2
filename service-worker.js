@@ -1,5 +1,5 @@
 const CACHE_NAME = 'soccer-v1';
-const BASE_URL = 'https://api.football-data.org/v2';
+const BASE_URL = 'https://api.football-data.org/v2/';
 const URL_TO_CACHES = [
   'https://fonts.googleapis.com/icon?family=Material+Icons',
   'https://fonts.gstatic.com/s/materialicons/v55/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2',
@@ -40,6 +40,22 @@ self.addEventListener('install', event => {
   )
 });
 
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            console.log(`[ServiceWorker]: cache ${cacheName} has been removed`);
+            
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
+
 self.addEventListener('fetch', event => {
   if (event.request.url.indexOf(BASE_URL) > -1) {
     event.respondWith(
@@ -58,22 +74,6 @@ self.addEventListener('fetch', event => {
       })
     );
   }
-});
-
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log(`[ServiceWorker]: cache ${cacheName} has been removed`);
-            
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
 });
 
 self.addEventListener('push', event => {
