@@ -1,5 +1,5 @@
 class DataTeams {
-  static getTeams() {
+  static async getTeams() {
     return fetch('https://api.football-data.org/v2/competitions/2021/teams', {
       headers: {
         'X-Auth-Token': 'afe35bd658a449c485b7a28f9ce426d3'
@@ -17,7 +17,7 @@ class DataTeams {
     });
   }
 
-  static detailsTeam(idTeam) {
+  static async detailsTeam(idTeam) {
     return fetch(`https://api.football-data.org/v2/teams/${idTeam}`, {
       headers: {
         'X-Auth-Token': 'afe35bd658a449c485b7a28f9ce426d3'

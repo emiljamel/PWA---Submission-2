@@ -56,8 +56,12 @@ self.addEventListener('activate', event => {
   );
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', event => {  
+  console.log(event.request.url)
+
   if (event.request.url.indexOf(BASE_URL) > -1) {
+    console.log('OK')
+
     event.respondWith(
       caches.open(CACHE_NAME).then(cache => {
         return fetch(event.request).then(response => {
@@ -68,6 +72,8 @@ self.addEventListener('fetch', event => {
       })
     );
   } else {
+    console.log('NOT OK')
+
     event.respondWith(
       caches.match(event.request, { ignoreSearch: true }).then(response => {
         return response || fetch(event.request);
